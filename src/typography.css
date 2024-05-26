@@ -1,1 +1,32 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,900|Quicksand');
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,900|Quicksand');*/
+/* styles.css */
+/* 居中Button容器的样式 */
+
+.button-container {
+  margin-top: 100px;
+  width: 100%; /* 宽度为100% */
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  display: grid; /* 使用grid布局 */
+  grid-gap: 20px; /* 间距为20px */
+  align-items: center; /* 水平居中 */
+  justify-items: center; /* 垂直居中 */
+  height: 50%; /* 占满Sider容器的高度 */
+}
+
+/* Button的样式 */
+.button-style {
+  width: 150px; /* 设置按钮宽度 */
+  height: 50px; /* 设置按钮高度 */
+  font-size: 20px; /* 设置按钮字体大小 */
+  font-family: "Montserrat", sans-serif; /* 设置按钮字体 */
+  font-weight: 900; /* 设置按钮字体粗细 */
+  color: black; /* 设置按钮字体颜色 */
+  /*设置按钮背景颜色会一系列的效果，这里使用了渐变效果*/
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+
+  border: none; /* 去掉按钮边框 */
+  border-radius: 20px; /* 设置按钮圆角 */
+  margin: 25px; /* 设置按钮之间的间距 */
+  /* 其他样式保持不变 */
+}

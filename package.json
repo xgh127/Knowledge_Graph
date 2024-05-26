@@ -16,11 +16,15 @@
     }
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "ant-design": "^1.0.0",
+    "antd": "^5.17.2",
     "neovis.js": "^1.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-resize-aware": "^3.0.1",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "3.4.3"
   },
   "devDependencies": {

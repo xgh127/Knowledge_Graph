@@ -1,21 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useResizeAware from "react-resize-aware";
 import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
+import Sider from "antd/es/layout/Sider";
+import { Card, Layout } from "antd";
 
-const NeoGraph = (props) => {
+const { Meta } = Card;
+//这是展示Neo4j图形的组件，它使用了Neovis.js库，它可以将Neo4j图形展示在网页上。
+const NeoGraph = props => {
+  //定义一个NeoGraph组件，接收props参数
   const {
-    width,
-    height,
-    containerId,
-    backgroundColor,
-    neo4jUri,
-    neo4jUser,
-    neo4jPassword,
+    width, //宽度
+    height, //高度
+    containerId, //容器id
+    backgroundColor, //背景颜色
+    neo4jUri, //neo4jUri 地址
+    neo4jUser, //neo4jUser 用户名
+    neo4jPassword, //neo4jPassword 密码
+    cypherQuery, //cypherQuery 查询语句
   } = props;
 
-  const visRef = useRef();
+  const visRef = useRef(); //创建一个ref对象,用于保存Neo4j对象
+  // useEffect 是一个React hook，它可以让你在函数组件中执行一些有副作用的操作，比如获取数据，设置状态，或者订阅一些事件。
 
+  const [selectedNodeInfo, setSelectedNodeInfo] = useState(null); // 存储选中节点的详细信息
   useEffect(() => {
     const config = {
       container_id: visRef.current.id,
@@ -35,31 +43,89 @@ const NeoGraph = (props) => {
           thickness: "count",
         },
       },
-      initial_cypher:
-        "MATCH (tw:Tweet)-[rel:HAS_TAG]->(ht:Hashtag) RETURN tw, ht, rel LIMIT 10",
+      initial_cypher: cypherQuery,
+      // "MATCH p=()-[r:IN_SQUAD]->() RETURN p LIMIT 25",
     };
-    const vis = new Neovis(config);
-    vis.render();
-  }, [neo4jUri, neo4jUser, neo4jPassword]);
+    try {
+      const vis = new Neovis(config);
+      vis.render();
+      // 添加点击节点的事件监听器
+      vis.registerOnEvent("clickNode", e => {
+        // e: { nodeId: number; node: Node }
+        console.info(e.node.raw.properties);
+        setSelectedNodeInfo(e.node.raw.properties);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [neo4jUri, neo4jUser, neo4jPassword, cypherQuery]);
 
   return (
-    <div
-      id={containerId}
-      ref={visRef}
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        backgroundColor: `${backgroundColor}`,
-      }}
-    />
+    <Layout style={{ minHeight: "100vh" }}>
+      <Layout>
+        <Sider
+          width={300}
+          height="100%"
+          style={{
+            background: "#fff",
+            boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
+            //显示在
+            position: "fixed",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            overflow: "auto",
+            //变大一点
+          }}
+        >
+          {/* 选中节点信息展示区域 */}
+
+          <Card size="large">
+            <p
+              style={{
+                //设置字体样式
+                fontFamily: "Arial, sans-serif",
+                fontSize: "20px",
+                lineHeight: "1.5",
+                margin: "0 0 10px",
+                padding: "0",
+                color: "#333",
+                border: "none",
+                background: "none",
+                boxShadow: "none",
+                wordWrap: "break-word",
+                whiteSpace: "pre-wrap",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+              }}
+            >
+              {JSON.stringify(selectedNodeInfo, null, 2)}
+            </p>
+          </Card>
+        </Sider>
+        <Layout
+          style={{
+            //设置最大高度和宽度
+            maxHeight: "100vh",
+            maxWidth: "100vw",
+          }}
+        >
+          <div
+            id={containerId}
+            ref={visRef}
+            style={{ width: "100%", height: "100%", backgroundColor }}
+          />
+        </Layout>
+      </Layout>
+    </Layout>
   );
 };
-
-NeoGraph.defaultProps = {
-  width: 600,
-  height: 600,
-  backgroundColor: "#d3d3d3",
-};
+//
+// NeoGraph.defaultProps = {
+//   width: 600,
+//   height: 600,
+//   backgroundColor: "white",
+// };
 
 NeoGraph.propTypes = {
   width: PropTypes.number.isRequired,
@@ -71,14 +137,36 @@ NeoGraph.propTypes = {
   backgroundColor: PropTypes.string,
 };
 
-const ResponsiveNeoGraph = (props) => {
+//这是一个响应式NeoGraph组件，它会根据窗口大小自动调整大小。
+const ResponsiveNeoGraph = props => {
+  const { cypherQuery } = props;
   const [resizeListener, sizes] = useResizeAware();
-
-  const side = Math.max(sizes.width, sizes.height) / 2;
-  const neoGraphProps = { ...props, width: side, height: side };
+  const neoGraphProps = {
+    ...props,
+    width: sizes.width || window.innerWidth * 0.8,
+    height: sizes.height || window.innerHeight * 0.9,
+    cypherQuery,
+    backgroundColor: "white",
+  };
   return (
-    <div style={{ position: "relative" }}>
-      {resizeListener}
+    <div
+      style={{
+        border: "5px solid #d9d9d9", // 边框
+        display: "flex", // 设置为Flex容器
+        justifyContent: "center", // 水平居中
+        alignItems: "center", // 垂直居中
+        position: "relative", // 绝对定位
+        top: "50%", // 垂直居中
+        left: "50%", // 水平居中
+        transform: "translate(-50%, -50%)", // 平移居中
+        width: "100%", // 占满整个父容器的宽度
+        height: "100%", // 占满整个父容器的高度
+        //设置最大高度和宽度
+        maxHeight: "100vh",
+        maxWidth: "100vw",
+      }}
+    >
+      {/*{resizeListener}*/}
       <NeoGraph {...neoGraphProps} />
     </div>
   );
