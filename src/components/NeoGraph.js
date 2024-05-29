@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
 import Sider from "antd/es/layout/Sider";
 import { Card, Layout } from "antd";
+import NodeInfoDisplay from "./NodeInfoDisplay";
 
 const { Meta } = Card;
 //这是展示Neo4j图形的组件，它使用了Neovis.js库，它可以将Neo4j图形展示在网页上。
@@ -52,7 +53,7 @@ const NeoGraph = props => {
       // 添加点击节点的事件监听器
       vis.registerOnEvent("clickNode", e => {
         // e: { nodeId: number; node: Node }
-        console.info(e.node.raw.properties);
+        console.log(JSON.stringify(e.node.raw.properties));
         setSelectedNodeInfo(e.node.raw.properties);
       });
     } catch (e) {
@@ -79,9 +80,7 @@ const NeoGraph = props => {
           {/* 选中节点信息展示区域 */}
 
           <Card size="large">
-            <p className="node-info-text-style">
-              {JSON.stringify(selectedNodeInfo, null, 2)}
-            </p>
+            <NodeInfoDisplay selectedNodeInfo={selectedNodeInfo} />
           </Card>
         </Sider>
         <Layout
@@ -101,12 +100,6 @@ const NeoGraph = props => {
     </Layout>
   );
 };
-//
-// NeoGraph.defaultProps = {
-//   width: 600,
-//   height: 600,
-//   backgroundColor: "white",
-// };
 
 NeoGraph.propTypes = {
   width: PropTypes.number.isRequired,
