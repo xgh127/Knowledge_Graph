@@ -69,36 +69,17 @@ const NeoGraph = props => {
           style={{
             background: "#fff",
             boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
-            //显示在
             position: "fixed",
             right: 0,
             top: 0,
             bottom: 0,
             overflow: "auto",
-            //变大一点
           }}
         >
           {/* 选中节点信息展示区域 */}
 
           <Card size="large">
-            <p
-              style={{
-                //设置字体样式
-                fontFamily: "Arial, sans-serif",
-                fontSize: "20px",
-                lineHeight: "1.5",
-                margin: "0 0 10px",
-                padding: "0",
-                color: "#333",
-                border: "none",
-                background: "none",
-                boxShadow: "none",
-                wordWrap: "break-word",
-                whiteSpace: "pre-wrap",
-                overflowWrap: "break-word",
-                wordBreak: "break-word",
-              }}
-            >
+            <p className="node-info-text-style">
               {JSON.stringify(selectedNodeInfo, null, 2)}
             </p>
           </Card>
@@ -149,23 +130,7 @@ const ResponsiveNeoGraph = props => {
     backgroundColor: "white",
   };
   return (
-    <div
-      style={{
-        border: "5px solid #d9d9d9", // 边框
-        display: "flex", // 设置为Flex容器
-        justifyContent: "center", // 水平居中
-        alignItems: "center", // 垂直居中
-        position: "relative", // 绝对定位
-        top: "50%", // 垂直居中
-        left: "50%", // 水平居中
-        transform: "translate(-50%, -50%)", // 平移居中
-        width: "100%", // 占满整个父容器的宽度
-        height: "100%", // 占满整个父容器的高度
-        //设置最大高度和宽度
-        maxHeight: "100vh",
-        maxWidth: "100vw",
-      }}
-    >
+    <div className="neoGraph-container">
       {/*{resizeListener}*/}
       <NeoGraph {...neoGraphProps} />
     </div>

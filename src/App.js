@@ -26,7 +26,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH (n) RETURN n LIMIT 25");
+                setCypherQuery("MATCH (n:Movie) RETURN n LIMIT 25");
               }}
             >
               总体框架
@@ -34,7 +34,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH (n)-[r]->(m) RETURN n,r,m LIMIT 25");
+                setCypherQuery("MATCH p=()-[r:ACTED_IN]->() RETURN p LIMIT 25");
               }}
             >
               项目管理
@@ -42,9 +42,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery(
-                  "MATCH p=()-[r:COACH_FOR]->() RETURN p LIMIT 25"
-                );
+                setCypherQuery("MATCH p=()-[r:DIRECTED]->() RETURN p LIMIT 25");
               }}
             >
               运营数据
@@ -60,9 +58,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery(
-                  "MATCH p=()-[r:IN_SQUAD]->()-[r2:IN_SQUAD]->() RETURN p LIMIT 25"
-                );
+                setCypherQuery("MATCH p=()-[r:FOLLOWS]->() RETURN p LIMIT 25");
               }}
             >
               新能源政策
@@ -70,9 +66,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery(
-                  "MATCH p=()-[r:IN_SQUAD]->()-[r2:IN_SQUAD]->()-[r3:IN_SQUAD]->() RETURN p LIMIT 25"
-                );
+                setCypherQuery("MATCH p=()-[r:PRODUCED]->() RETURN p LIMIT 25");
               }}
             >
               数据更新
