@@ -14,7 +14,9 @@ const NEO4J_USER = "neo4j";
 const NEO4J_PASSWORD = "test1234";
 
 function App() {
-  const [cypherQuery, setCypherQuery] = useState("MATCH (n) RETURN n LIMIT 25");
+  const [cypherQuery, setCypherQuery] = useState(
+    "MATCH p=()-[r:WROTE]->() RETURN p LIMIT 25"
+  );
   return (
     <Layout>
       <Layout.Header style={{ background: "#fff", padding: 0, height: "auto" }}>
@@ -50,7 +52,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH p=()-[r:IN_SQUAD]->() RETURN p LIMIT 25");
+                setCypherQuery("MATCH p=()-[r:REVIEWED]->() RETURN p LIMIT 25");
               }}
             >
               大部件供应链

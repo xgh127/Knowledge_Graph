@@ -4,17 +4,14 @@ import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
 import Sider from "antd/es/layout/Sider";
 import { Card, Layout } from "antd";
-import NodeInfoDisplay from "./NodeInfoDisplay";
+import InfoDisplay from "./InfoDisplay";
 
 const { Meta } = Card;
 //这是展示Neo4j图形的组件，它使用了Neovis.js库，它可以将Neo4j图形展示在网页上。
 const NeoGraph = props => {
   //定义一个NeoGraph组件，接收props参数
   const {
-    width, //宽度
-    height, //高度
     containerId, //容器id
-    backgroundColor, //背景颜色
     neo4jUri, //neo4jUri 地址
     neo4jUser, //neo4jUser 用户名
     neo4jPassword, //neo4jPassword 密码
@@ -25,6 +22,7 @@ const NeoGraph = props => {
   // useEffect 是一个React hook，它可以让你在函数组件中执行一些有副作用的操作，比如获取数据，设置状态，或者订阅一些事件。
 
   const [selectedNodeInfo, setSelectedNodeInfo] = useState(null); // 存储选中节点的详细信息
+  const [selectedEdgeInfo, setSelectedEdgeInfo] = useState(null); // 存储选中边的详细信息
   useEffect(() => {
     const config = {
       container_id: visRef.current.id,
@@ -32,20 +30,19 @@ const NeoGraph = props => {
       server_user: neo4jUser,
       server_password: neo4jPassword,
       labels: {
-        Troll: {
-          caption: "user_key",
-          size: "pagerank",
-          community: "community",
+        Character: {
+          label: "name",
+          value: "pagerank",
+          group: "community",
         },
       },
       relationships: {
-        RETWEETS: {
-          caption: false,
-          thickness: "count",
+        DIRECTED: {
+          value: "weight",
         },
       },
+      arrows: true,
       initial_cypher: cypherQuery,
-      // "MATCH p=()-[r:IN_SQUAD]->() RETURN p LIMIT 25",
     };
     try {
       const vis = new Neovis(config);
@@ -56,9 +53,14 @@ const NeoGraph = props => {
         console.log(JSON.stringify(e.node.raw.properties));
         setSelectedNodeInfo(e.node.raw.properties);
       });
+      vis.registerOnEvent("clickEdge", e => {
+        console.log(e);
+        setSelectedEdgeInfo(e.edge.raw.properties);
+      });
     } catch (e) {
       console.error(e);
     }
+    //添加点击边的事件监听器
   }, [neo4jUri, neo4jUser, neo4jPassword, cypherQuery]);
 
   return (
@@ -80,7 +82,16 @@ const NeoGraph = props => {
           {/* 选中节点信息展示区域 */}
 
           <Card size="large">
-            <NodeInfoDisplay selectedNodeInfo={selectedNodeInfo} />
+            <InfoDisplay
+              title="选中节点信息"
+              selectedInputInfo={selectedNodeInfo}
+            />
+          </Card>
+          <Card size="large">
+            <InfoDisplay
+              title="选中边信息"
+              selectedInputInfo={selectedEdgeInfo}
+            />
           </Card>
         </Sider>
         <Layout
@@ -93,7 +104,7 @@ const NeoGraph = props => {
           <div
             id={containerId}
             ref={visRef}
-            style={{ width: "100%", height: "100%", backgroundColor }}
+            style={{ width: "100%", height: "100%" }}
           />
         </Layout>
       </Layout>

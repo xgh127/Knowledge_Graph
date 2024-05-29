@@ -28,13 +28,13 @@ function renderValue(value, depth = 0) {
   return value.toString();
 }
 
-function NodeInfoDisplay({ selectedNodeInfo }) {
+function InfoDisplay({ selectedInputInfo, title }) {
   // 假设 selectedNodeInfo 是一个包含节点属性的对象
   const renderAttributes = () => {
-    if (!selectedNodeInfo) return null;
+    if (!selectedInputInfo) return null;
 
     // 创建一个列表项数组来展示属性
-    const listItems = Object.entries(selectedNodeInfo).map(([key, value]) => (
+    const listItems = Object.entries(selectedInputInfo).map(([key, value]) => (
       <List.Item key={key}>
         <List.Item.Meta
           title={<span style={{ fontSize: "24px" }}>{key}</span>}
@@ -50,7 +50,7 @@ function NodeInfoDisplay({ selectedNodeInfo }) {
 
   return (
     <div>
-      <h1 style={{ fontSize: "32px" }}>Node Info</h1>
+      <h1 style={{ fontSize: "32px" }}>{title}</h1>
       <Card>
         <List>{renderAttributes()}</List>
       </Card>
@@ -58,4 +58,4 @@ function NodeInfoDisplay({ selectedNodeInfo }) {
   );
 }
 
-export default NodeInfoDisplay;
+export default InfoDisplay;
