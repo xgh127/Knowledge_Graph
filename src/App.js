@@ -14,9 +14,7 @@ const NEO4J_USER = "neo4j";
 const NEO4J_PASSWORD = "test1234";
 
 function App() {
-  const [cypherQuery, setCypherQuery] = useState(
-    "MATCH p=()-[r:WROTE]->() RETURN p LIMIT 25"
-  );
+  const [cypherQuery, setCypherQuery] = useState("MATCH (n) RETURN n LIMIT 25");
   return (
     <Layout>
       <Layout.Header style={{ background: "#fff", padding: 0, height: "auto" }}>
@@ -28,7 +26,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH (n:Movie) RETURN n LIMIT 25");
+                setCypherQuery("MATCH (n:`上能电气`) RETURN n LIMIT 25");
               }}
             >
               总体框架
@@ -36,7 +34,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH p=()-[r:ACTED_IN]->() RETURN p LIMIT 25");
+                setCypherQuery("MATCH (n:`一级节点`) RETURN n ");
               }}
             >
               项目管理

@@ -77,18 +77,21 @@ const NeoGraph = props => {
             top: 0,
             bottom: 0,
             overflow: "auto",
+            zIndex: 1000,
           }}
         >
           {/* 选中节点信息展示区域 */}
 
           <Card size="large">
             <InfoDisplay
+              style={{ userSelect: "text" }}
               title="选中节点信息"
               selectedInputInfo={selectedNodeInfo}
             />
           </Card>
           <Card size="large">
             <InfoDisplay
+              style={{ userSelect: "text" }}
               title="选中边信息"
               selectedInputInfo={selectedEdgeInfo}
             />
