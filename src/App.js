@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Layout } from "antd";
+import { Button, Input, Layout } from "antd";
 import { MyHeader } from "./components/MyHeader";
 import { ResponsiveNeoGraph } from "./components/NeoGraph";
 import Sider from "antd/es/layout/Sider";
@@ -15,6 +15,7 @@ const NEO4J_PASSWORD = "test1234";
 
 function App() {
   const [cypherQuery, setCypherQuery] = useState("MATCH (n) RETURN n LIMIT 25");
+  const [inputValue, setInputValue] = useState("null");
   return (
     <Layout>
       <Layout.Header style={{ background: "#fff", padding: 0, height: "auto" }}>
@@ -42,7 +43,9 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH p=()-[r:DIRECTED]->() RETURN p LIMIT 25");
+                setCypherQuery(
+                  "MATCH p=()-[r:`24号风机`]->() RETURN p LIMIT 25"
+                );
               }}
             >
               运营数据
@@ -50,7 +53,9 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH p=()-[r:REVIEWED]->() RETURN p LIMIT 25");
+                setCypherQuery(
+                  "MATCH p=()-[r:`公司消缺项`]->() RETURN p LIMIT 25"
+                );
               }}
             >
               大部件供应链
@@ -58,7 +63,9 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH p=()-[r:FOLLOWS]->() RETURN p LIMIT 25");
+                setCypherQuery(
+                  "MATCH p=()-[r:`电力政策`]->() RETURN p LIMIT 25"
+                );
               }}
             >
               新能源政策
@@ -66,7 +73,7 @@ function App() {
             <Button
               className="button-style"
               onClick={() => {
-                setCypherQuery("MATCH p=()-[r:PRODUCED]->() RETURN p LIMIT 25");
+                setCypherQuery("MATCH p=()-[r:`属于`]->() RETURN p LIMIT 25");
               }}
             >
               数据更新
@@ -74,6 +81,25 @@ function App() {
           </div>
         </Sider>
         <Layout.Content>
+          {/*//补充一个输入查询语句，然后按下查询按钮，可以查询到对应的图谱,搜索框和按钮并排，要求按下按钮后，运行输入的查询语句，并展示对应的图谱*/}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Input
+              style={{ width: "85%" }}
+              // value={cypherQuery}
+              onChange={e => {
+                setInputValue(e.target.value);
+              }}
+            />
+            <Button
+              style={{ width: "15%" }}
+              type="primary"
+              onClick={() => {
+                setCypherQuery(inputValue);
+              }}
+            >
+              查询
+            </Button>
+          </div>
           <ResponsiveNeoGraph
             cypherQuery={cypherQuery}
             containerId={"id0"}

@@ -8,6 +8,94 @@ import InfoDisplay from "./InfoDisplay";
 
 const { Meta } = Card;
 //这是展示Neo4j图形的组件，它使用了Neovis.js库，它可以将Neo4j图形展示在网页上。
+function generateLabelConfigs() {
+  const baseConfig = {
+    caption: "name",
+    size: "pagerank",
+  };
+  const labels = [
+    "SVG厂家",
+    "一级节点",
+    "上华新能源无锡",
+    "上海电气",
+    "上能电气",
+    "东方日升光伏",
+    "东方日升新能源",
+    "东方电气",
+    "中清光伏",
+    "中电电气光伏",
+    "中节能太阳能",
+    "主机厂家",
+    "主齿轮箱厂家",
+    "二级节点",
+    "云南国际项目",
+    "亿晶光电",
+    "供应商",
+    "偏航轴承厂家",
+    "光伏支架厂家",
+    "光电供应商",
+    "公司消缺项",
+    "具体故障风机",
+    "具体风机故障信息",
+    "功率预测系统厂家",
+    "北京ABB电气传动系统",
+    "华为技术",
+    "华耀光伏科技",
+    "发电机厂家",
+    "变桨轴承厂家",
+    "变频器厂家",
+    "叶片厂家",
+    "哈电风能",
+    "广东易事特电源",
+    "故障",
+    "整体故障信息",
+    "新能源政策法规",
+    "易事特集团",
+    "晶科能源",
+    "正泰新能源",
+    "气象系统厂家",
+    "汇流箱厂家",
+    "浙江乐叶光伏",
+    "海润光伏",
+    "电力价格",
+    "电力市场",
+    "电池组件厂家",
+    "监控系统厂家",
+    "箱变厂家",
+    "箱变测控厂家",
+    "老青山主机设备",
+    "许继电气",
+    "许继集团",
+    "许继风电",
+    "设计施工单位名",
+    "轮毂厂家",
+    "辐照计厂家",
+    "运营单位名",
+    "运营情况",
+    "运营故障",
+    "远景能源",
+    "逆变器厂家",
+    "通威光伏科技",
+    "重庆海装",
+    "金风科技",
+    "隆基绿能",
+    "项目故障",
+    "项目消缺项",
+    "项目节点",
+    "风场大部件",
+    "风机",
+    "风机发电量数据",
+    "风机子节点",
+    "风电供应商",
+    "黄河上游水电开发西宁分公司",
+  ];
+
+  const config = {};
+  labels.forEach(label => {
+    config[label] = { ...baseConfig };
+  });
+  return config;
+}
 const NeoGraph = props => {
   //定义一个NeoGraph组件，接收props参数
   const {
@@ -29,13 +117,8 @@ const NeoGraph = props => {
       server_url: neo4jUri,
       server_user: neo4jUser,
       server_password: neo4jPassword,
-      labels: {
-        Character: {
-          label: "name",
-          value: "pagerank",
-          group: "community",
-        },
-      },
+      //caption属性换成label属性即可
+      labels: generateLabelConfigs(),
       relationships: {
         DIRECTED: {
           value: "weight",
@@ -71,10 +154,10 @@ const NeoGraph = props => {
           height="100%"
           style={{
             background: "#fff",
-            boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
+            // boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
             position: "fixed",
             right: 0,
-            top: 0,
+            top: -18,
             bottom: 0,
             overflow: "auto",
             zIndex: 1000,
