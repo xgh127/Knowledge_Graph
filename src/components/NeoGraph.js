@@ -150,7 +150,7 @@ const NeoGraph = props => {
     <Layout style={{ minHeight: "100vh" }}>
       <Layout>
         <Sider
-          width={300}
+          width={400}
           height="100%"
           style={{
             background: "#fff",

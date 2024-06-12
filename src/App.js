@@ -84,14 +84,14 @@ function App() {
           {/*//补充一个输入查询语句，然后按下查询按钮，可以查询到对应的图谱,搜索框和按钮并排，要求按下按钮后，运行输入的查询语句，并展示对应的图谱*/}
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Input
-              style={{ width: "85%" }}
+              style={{ width: "80%" }}
               // value={cypherQuery}
               onChange={e => {
                 setInputValue(e.target.value);
               }}
             />
             <Button
-              style={{ width: "15%" }}
+              style={{ width: "20%" }}
               type="primary"
               onClick={() => {
                 setCypherQuery(inputValue);

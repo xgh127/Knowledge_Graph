@@ -1,16 +1,18 @@
-# React Neovis Example
-
-[![Dependencies](https://david-dm.org/jackdbd/react-neovis-example.svg)](https://david-dm.org/jackdbd/react-neovis-example)
-
-![A PNG file that shows an example of this project](https://github.com/jackdbd/react-neovis-example/blob/master/screenshots/example.png "Example")
+#Based on React+Neovis.js Knowledge Graph Visualization Example
+![example](screenshots/example.png)
 
 ## What is this thing?
 
-This repo is just a simple example on how to show a [neovis.js](https://github.com/neo4j-contrib/neovis.js/) graph visualization in a React application.
+This repo is based on [react-neovis-example](https://github.com/jackdbd/react-neovis-example).I added some functions to make the graph more user-friendly.All the added features are listed below:
 
-## How do I use it?
+- Add the arrow and let the node display the name of the node.
+- Add a search bar so users can input cypher query to search for specific information.![search](screenshots/search-bar.png)
+- Add the function that users can click the node to see the detail of the node.![node-detail](screenshots/node-detail.png)
+- Add the button so users can click to run different cypher queries.
 
-You don't need to install Neo4j for this project. You just need 3 things:
+## How to use it?
+
+As you are new to neo4j, you can follow the steps below to create a neo4j sandbox and run the project.
 
 1. create a Neo4j Sandbox on [neo4j.com](https://neo4j.com/sandbox/),
 2. install the project dependencies,
@@ -22,32 +24,43 @@ A Neo4j Sandbox is essentially a Docker container with Neo4j installed, and a gr
 
 Create a Neo4j Sanbox [here](https://neo4j.com/sandbox/).
 
-![A PNG file that shows the creation of a Neo4j Sandbox with Russian Twitter Trolls dataset](https://github.com/jackdbd/react-neovis-example/blob/master/screenshots/create-sandbox.png "Neo4j Sandbox with Russian Twitter Trolls dataset")
+![create-sandbox](screenshots/create-sandbox.png)
 
 ### 2 - Install project dependencies
 
 ```sh
-git clone git@github.com:jackdbd/react-neovis-example.git
-cd react-neovis-example
-yarn install  # or simply, yarn
+git clone https://github.com/xgh127/Knowledge_Graph.git
+cd Knowledge_Graph
+npm install  # or simply, npm
 ```
 
 ### 3 - Connect to your Neo4j Sandbox
 
 Find the `Connection details` for your Neo4j Sandbox:
+![connection-details](screenshots/sandbox-credentials.png)
 
-![A PNG file that shows your Neo4j Sandbox credentials](https://github.com/jackdbd/react-neovis-example/blob/master/screenshots/sandbox-credentials.png "Neo4j Sandbox credentials")
+Then open the [App component](src/App.js) and replace the following lines with your own credentials:
 
-Then open the [App component](https://github.com/jackdbd/react-neovis-example/blob/master/src/components/App.js) and replace `YOUR-BOLT-URI-HERE` and `YOUR-NEO4J-PASSWORD-HERE` with your Neo4j Sanbox connection details.
-
-Now you are all set, and you can run the app with:
-
-```sh
-yarn start
+```js
+const NEO4J_URI = "YOUR_NEO4J_BOLT_URL";
+const NEO4J_USER = "YOUR_NEO4J_USERNAME";
+const NEO4J_PASSWORD = "YOUR_NEO4J_PASSWORD";
 ```
 
-## Credits
+Please neglect my connection details.
 
-Inspired by William Lyon's [Graph Visualization With Neo4j Using Neovis.js](https://medium.com/neo4j/graph-visualization-with-neo4j-using-neovis-js-a2ecaaa7c379).
+### 4 - Run the project
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+```sh
+npm start
+```
+
+The project will be running on `http://localhost:3000/react-neovis-example/`.
+
+## Other ways to run the project
+
+If you have already installed neo4j locally, you can also run the project by replace the corresponding lines in the [App component](src/App.js) with your own credentials.
+
+## Contact me
+
+If you have any questions, please feel free to contact me at <EMAIL> which is on my profile.
