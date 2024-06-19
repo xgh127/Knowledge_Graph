@@ -8,7 +8,7 @@ export const MyHeader = props => {
   return (
     <Header
       style={{
-        height: "160px",
+        height: "120px",
         padding: 0,
         textAlign: "center",
         //设置字体样式
