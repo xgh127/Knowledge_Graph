@@ -59,3 +59,22 @@
   max-height: 100vh;
   max-width: 100vw;
 }
+.logo {
+  float: left;
+  width: 100px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+/* 设置 body 元素的背景图片 */
+/* typography.css */
+body,
+#root {
+  background-image: url("https://hbimg.b0.upaiyun.com/d79887a5bd0c67c31d121570ae63e1886a44010611673-Kq66IF_fw658");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0; /* 确保没有默认的外边距 */
+  height: 100%; /* 设置足够的高度 */
+  min-height: 100vh; /* 确保至少覆盖视口高度 */
+}

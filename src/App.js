@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Button, Input, Layout, Menu, Select } from "antd";
+import { Button, Input, Layout, Menu, Select, Space } from "antd";
 import { MyHeader } from "./components/MyHeader";
 import { NeoGraph, ResponsiveNeoGraph } from "./components/NeoGraph";
 import "./typography.css";
-import { Footer } from "antd/es/layout/layout";
 
 import { menuItems, searchTypeToCypher } from "./components/Constant";
 import { Option } from "antd/es/mentions";
+import { Footer } from "antd/es/modal/shared";
 
 // const NEO4J_URI = "bolt://34.238.157.2:7687";
 // const NEO4J_USER = "neo4j";
@@ -55,46 +55,53 @@ function App() {
 
   return (
     <Layout>
-      <Layout.Header style={{ margin: 0, padding: 0, height: "12vh" }}>
-        <MyHeader headerText="知识图谱前端展示" />
-      </Layout.Header>
+      <MyHeader headerText="知识图谱前端展示" />
       <Layout>
-        <Layout.Sider width={240}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Menu
-              theme="dark"
-              style={{
-                width: "100%",
-                height: "100%",
-                fontSize: "20px",
-                textAlign: "center",
-              }}
-              mode="inline"
-            >
-              {renderMenuItems(menuItems)}
-            </Menu>
-          </div>
+        <Layout.Sider
+          // width={240}
+          theme="light"
+        >
+          <Menu
+            theme="light"
+            style={{
+              width: "100%",
+              height: "100%",
+              fontSize: "20px",
+              textAlign: "center",
+            }}
+            mode="inline"
+          >
+            {renderMenuItems(menuItems)}
+          </Menu>
         </Layout.Sider>
         <Layout.Content>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Input.Group compact>
+            <Space.Compact style={{ width: "100%" }}>
               <Select
-                style={{ width: "30%", textAlign: "center" }}
+                style={{ width: "25%", textAlign: "center" }}
                 defaultValue="0"
                 onChange={handleSearchTypeChange}
               >
-                <Option value="0">按名称搜索子节点</Option>
-                <Option value="1">按B类型搜索</Option>
-                <Option value="2">按C类型搜索</Option>
-                <Option value="3">按D类型搜索</Option>
+                <Select.Option value="0" style={{ textAlign: "center" }}>
+                  按名称搜索子节点
+                </Select.Option>
+                <Select.Option value="1" style={{ textAlign: "center" }}>
+                  按B类型搜索
+                </Select.Option>
+                <Select.Option value="2" style={{ textAlign: "center" }}>
+                  按C类型搜索
+                </Select.Option>
+                <Select.Option value="3" style={{ textAlign: "center" }}>
+                  按D类型搜索
+                </Select.Option>
               </Select>
               <Search
                 placeholder="input search text"
                 size={"middle"}
-                style={{ width: "70%" }}
+                style={{ width: "75%" }}
                 onSearch={onSearch}
               />
-            </Input.Group>
+            </Space.Compact>
           </div>
           <ResponsiveNeoGraph
             cypherQuery={cypherQuery}
@@ -105,6 +112,13 @@ function App() {
           />
         </Layout.Content>
       </Layout>
+      <Layout.Footer
+        style={{
+          textAlign: "center",
+        }}
+      >
+        &copy; 2024 SJTU. All Rights Reserved By Xgh.
+      </Layout.Footer>
     </Layout>
   );
 }

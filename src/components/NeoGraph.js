@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import useResizeAware from "react-resize-aware";
-import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
-import Sider from "antd/es/layout/Sider";
 import { Card, Layout } from "antd";
 import InfoDisplay from "./InfoDisplay";
 import { SubGraph } from "./SubGraph";
