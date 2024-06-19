@@ -6,8 +6,8 @@ import Sider from "antd/es/layout/Sider";
 import "./typography.css";
 import { Footer } from "antd/es/layout/layout";
 
-import { menuItems } from "./components/SiderInfo";
-import { SimpleGraph } from "./components/SimpleGraph";
+import { menuItems } from "./components/Constant";
+import { SubGraph } from "./components/SubGraph";
 
 // const NEO4J_URI = "bolt://34.238.157.2:7687";
 // const NEO4J_USER = "neo4j";
@@ -44,7 +44,7 @@ function App() {
   };
   return (
     <Layout>
-      <Layout.Header style={{ margin: 0, padding: 0, height: "10vh" }}>
+      <Layout.Header style={{ margin: 0, padding: 0, height: "12vh" }}>
         <MyHeader headerText="知识图谱前端展示" />
       </Layout.Header>
       <Layout style={{ padding: "10 10px" }}>

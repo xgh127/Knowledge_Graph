@@ -28,7 +28,7 @@ function renderValue(value, depth = 0) {
   return value.toString();
 }
 
-function InfoDisplay({ selectedInputInfo, title }) {
+function InfoDisplay({ selectedInputInfo }) {
   // 假设 selectedNodeInfo 是一个包含节点属性的对象
   const renderAttributes = () => {
     if (!selectedInputInfo) return null;
@@ -50,10 +50,7 @@ function InfoDisplay({ selectedInputInfo, title }) {
 
   return (
     <div>
-      <h1 style={{ fontSize: "32px" }}>{title}</h1>
-      <Card>
-        <List>{renderAttributes()}</List>
-      </Card>
+      <List>{renderAttributes()}</List>
     </div>
   );
 }
