@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Button, Input, Layout, Menu } from "antd";
+import { Button, Input, Layout, Menu, Select } from "antd";
 import { MyHeader } from "./components/MyHeader";
 import { NeoGraph, ResponsiveNeoGraph } from "./components/NeoGraph";
-import Sider from "antd/es/layout/Sider";
 import "./typography.css";
 import { Footer } from "antd/es/layout/layout";
 
-import { menuItems } from "./components/Constant";
-import { SubGraph } from "./components/SubGraph";
+import { menuItems, searchTypeToCypher } from "./components/Constant";
+import { Option } from "antd/es/mentions";
 
 // const NEO4J_URI = "bolt://34.238.157.2:7687";
 // const NEO4J_USER = "neo4j";
@@ -15,16 +14,16 @@ import { SubGraph } from "./components/SubGraph";
 const NEO4J_URI = "bolt://localhost:7687";
 const NEO4J_USER = "neo4j";
 const NEO4J_PASSWORD = "test1234";
-
+const { Search } = Input;
 // 递归函数，用于生成菜单项
 
 function App() {
   const [cypherQuery, setCypherQuery] = useState(
     "MATCH p=(a {name: '云南国际'})-[r1]->(b)-[r2]->(c)-[r3]->(d) RETURN *"
   );
-  const [inputValue, setInputValue] = useState("null");
+  const [searchType, setSearchType] = useState(0);
   const renderMenuItems = items => {
-    return items.map(({ key, icon: Icon, label, query, children }) => {
+    return items.map(({ key, label, query, children }) => {
       const handleClick = () => {
         setCypherQuery(query);
       };
@@ -42,13 +41,25 @@ function App() {
       );
     });
   };
+  const handleSearchTypeChange = value => {
+    console.log(value);
+    setSearchType(value);
+  };
+  const onSearch = value => {
+    let cypher = searchTypeToCypher[searchType].cypher.replace(
+      "${target}",
+      value
+    );
+    setCypherQuery(cypher);
+  };
+
   return (
     <Layout>
       <Layout.Header style={{ margin: 0, padding: 0, height: "12vh" }}>
         <MyHeader headerText="知识图谱前端展示" />
       </Layout.Header>
-      <Layout style={{ padding: "10 10px" }}>
-        <Layout.Sider width={260}>
+      <Layout>
+        <Layout.Sider width={240}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Menu
               theme="dark"
@@ -65,27 +76,25 @@ function App() {
           </div>
         </Layout.Sider>
         <Layout.Content>
-          {/*//补充一个输入查询语句，然后按下查询按钮，可以查询到对应的图谱,搜索框和按钮并排，要求按下按钮后，运行输入的查询语句，并展示对应的图谱*/}
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Input
-              style={{ width: "80%" }}
-              // value={cypherQuery}
-              onChange={e => {
-                let target = e.target.value;
-                // const query = `MATCH (a) WHERE a.name =~ '.*${target}.*' RETURN a`;
-                const query = `MATCH p=(a)-[r]->(b) WHERE a.name =~ '.*${target}.*' RETURN *`;
-                setInputValue(query);
-              }}
-            />
-            <Button
-              style={{ width: "20%" }}
-              type="primary"
-              onClick={() => {
-                setCypherQuery(inputValue);
-              }}
-            >
-              查询
-            </Button>
+            <Input.Group compact>
+              <Select
+                style={{ width: "30%", textAlign: "center" }}
+                defaultValue="0"
+                onChange={handleSearchTypeChange}
+              >
+                <Option value="0">按名称搜索子节点</Option>
+                <Option value="1">按B类型搜索</Option>
+                <Option value="2">按C类型搜索</Option>
+                <Option value="3">按D类型搜索</Option>
+              </Select>
+              <Search
+                placeholder="input search text"
+                size={"middle"}
+                style={{ width: "70%" }}
+                onSearch={onSearch}
+              />
+            </Input.Group>
           </div>
           <ResponsiveNeoGraph
             cypherQuery={cypherQuery}
@@ -96,9 +105,6 @@ function App() {
           />
         </Layout.Content>
       </Layout>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2024 Created by Guohong Xu
-      </Footer>
     </Layout>
   );
 }

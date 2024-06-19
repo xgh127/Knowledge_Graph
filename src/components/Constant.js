@@ -119,3 +119,22 @@ export const labels = [
   "风电供应商",
   "黄河上游水电开发西宁分公司",
 ];
+export const searchTypeToCypher = [
+  {
+    type: 0,
+    cypher: "MATCH p=(a)-[r]->(b) WHERE a.name =~ '.*${target}.*' RETURN *",
+  },
+  {
+    type: 1,
+    cypher: "MATCH (n:Note) WHERE n.author CONTAINS $searchText RETURN n",
+  },
+  {
+    type: 2,
+    cypher: "MATCH (n:Note) WHERE n.content CONTAINS $searchText RETURN n",
+  },
+  {
+    type: 3,
+    cypher:
+      "MATCH (n:Note)-[r:TAGGED]->(t:Tag) WHERE t.name CONTAINS $searchText RETURN n",
+  },
+];

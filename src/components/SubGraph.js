@@ -48,7 +48,7 @@ const SubGraph = props => {
     <div
       id={containerId}
       ref={visRef}
-      style={{ width: "100%", height: "510px", border: "1px solid #ccc" }}
+      style={{ width: "100%", height: "60%", border: "1px solid #ccc" }}
     />
   );
 };

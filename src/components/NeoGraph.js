@@ -75,104 +75,77 @@ const NeoGraph = props => {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Layout>
-        <Sider
-          width={400}
-          height="100%"
-          style={{
-            background: "#fff",
-            position: "fixed",
-            right: 0,
-            top: -18,
-            bottom: 0,
-            overflow: "auto",
-            zIndex: 1000,
-          }}
-        >
-          {/* 选中节点信息展示区域 */}
+      <Layout.Sider
+        width={300}
+        height="100%"
+        style={{
+          background: "#fff",
+          position: "fixed",
+          right: 0,
+          top: -18,
+          bottom: 0,
+          overflow: "auto",
+          zIndex: 1000,
+        }}
+      >
+        {/* 选中节点信息展示区域 */}
 
-          <Card
-            size="large"
-            style={{
-              width: "100%",
-              height: "500px", // 你希望Card的最大高度
-              overflowY: "auto", // 当内容超过高度时，显示垂直滚动条
-              overflowX: "hidden", // 隐藏水平滚动条
-              boxSizing: "border-box", // 确保padding和border不会增加Card的总宽度
-            }}
-            title="选中节点信息"
-          >
-            <InfoDisplay
-              style={{ userSelect: "text" }}
-              selectedInputInfo={selectedNodeInfo}
-            />
-          </Card>
-
-          <SubGraph
-            cypherQuery={cypherQuery}
-            containerId={"id1"}
-            neo4jUri={neo4jUri}
-            neo4jUser={neo4jUser}
-            neo4jPassword={neo4jPassword}
-          />
-        </Sider>
-        <Layout
+        <Card
+          size="large"
           style={{
-            //设置最大高度和宽度
-            maxHeight: "100vh",
-            maxWidth: "100vw",
+            width: "100%",
+            height: "40%", // 你希望Card的最大高度
+            overflowY: "auto", // 当内容超过高度时，显示垂直滚动条
+            overflowX: "hidden", // 隐藏水平滚动条
+            boxSizing: "border-box", // 确保padding和border不会增加Card的总宽度
           }}
+          title="选中节点信息"
         >
-          <div
-            id={containerId}
-            ref={visRef}
-            style={{ width: "80%", height: "100%" }}
+          <InfoDisplay
+            style={{ userSelect: "text" }}
+            selectedInputInfo={selectedNodeInfo}
           />
-        </Layout>
-      </Layout>
+        </Card>
+        <SubGraph
+          cypherQuery={cypherQuery}
+          containerId={"id1"}
+          neo4jUri={neo4jUri}
+          neo4jUser={neo4jUser}
+          neo4jPassword={neo4jPassword}
+        />
+      </Layout.Sider>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 300,
+          bottom: 0,
+        }}
+        id={containerId}
+        ref={visRef}
+      />
     </Layout>
   );
-};
-
-NeoGraph.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  containerId: PropTypes.string.isRequired,
-  neo4jUri: PropTypes.string.isRequired,
-  neo4jUser: PropTypes.string.isRequired,
-  neo4jPassword: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string,
 };
 
 //这是一个响应式NeoGraph组件，它会根据窗口大小自动调整大小。
 const ResponsiveNeoGraph = props => {
   const { cypherQuery } = props;
-  const [resizeListener, sizes] = useResizeAware();
+
   const neoGraphProps = {
     ...props,
-    width: sizes.width || window.innerWidth * 0.7,
-    height: sizes.height || window.innerHeight * 0.9,
     cypherQuery,
     backgroundColor: "white",
   };
   return (
     <div className="neoGraph-container">
-      {/*{resizeListener}*/}
       <NeoGraph {...neoGraphProps} />
     </div>
   );
 };
-
 ResponsiveNeoGraph.defaultProps = {
   backgroundColor: "#d3d3d3",
-};
-
-ResponsiveNeoGraph.propTypes = {
-  containerId: PropTypes.string.isRequired,
-  neo4jUri: PropTypes.string.isRequired,
-  neo4jUser: PropTypes.string.isRequired,
-  neo4jPassword: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string,
 };
 
 export { NeoGraph, ResponsiveNeoGraph };
