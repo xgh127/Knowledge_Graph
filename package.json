@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://jackdbd.github.io/react-neovis-example",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "build": "react-scripts build",
     "lint": "prettier --write '{,!(node_modules)/}**/*.{js,jsx}'",
     "predeploy": "yarn run build",

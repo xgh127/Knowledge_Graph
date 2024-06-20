@@ -2,7 +2,8 @@ export const menuItems = [
   {
     key: "overall",
     label: "总体框架",
-    query: "MATCH (n:`一级节点`) RETURN n",
+    query:
+      "MATCH p=(a {name: '云南国际'})-[r1]->(b)-[r2]->(c)-[r3]->(d) RETURN *",
   },
   {
     key: "projectManagement",
@@ -11,7 +12,7 @@ export const menuItems = [
       {
         key: "laoqingshan",
         label: "老青山项目",
-        query: "MATCH (n:`上能电气`) RETURN n LIMIT 25",
+        query: "MATCH p=(a {name: '老青山项目'})-[r1]->(b)-[r2]->(c) RETURN *",
       },
       {
         key: "guangfuchang",
@@ -118,23 +119,22 @@ export const labels = [
   "风机子节点",
   "风电供应商",
   "黄河上游水电开发西宁分公司",
+  "设计施工公司",
+  "设计施工单位",
 ];
 export const searchTypeToCypher = [
   {
     type: 0,
-    cypher: "MATCH p=(a)-[r]->(b) WHERE a.name =~ '.*${target}.*' RETURN *",
+    cypher: "MATCH p=(a)-[r1]->(b) WHERE a.name =~ '.*${target}.*' RETURN *",
   },
   {
     type: 1,
-    cypher: "MATCH (n:Note) WHERE n.author CONTAINS $searchText RETURN n",
+    cypher:
+      "MATCH p=(a)-[r1]->(b)-[r2]->(c) WHERE b.name =~ '.*${target}.*' RETURN *",
   },
   {
     type: 2,
-    cypher: "MATCH (n:Note) WHERE n.content CONTAINS $searchText RETURN n",
-  },
-  {
-    type: 3,
     cypher:
-      "MATCH (n:Note)-[r:TAGGED]->(t:Tag) WHERE t.name CONTAINS $searchText RETURN n",
+      "MATCH p=(a)-[r1]->(b)-[r2]->(c) WHERE a.name =~ '.*${target}.*' RETURN *",
   },
 ];

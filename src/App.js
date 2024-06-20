@@ -13,7 +13,7 @@ import { Footer } from "antd/es/modal/shared";
 // const NEO4J_PASSWORD = "cars-cards-warranties";
 const NEO4J_URI = "bolt://localhost:7687";
 const NEO4J_USER = "neo4j";
-const NEO4J_PASSWORD = "test1234";
+const NEO4J_PASSWORD = "hongyuzhou";
 const { Search } = Input;
 // 递归函数，用于生成菜单项
 
@@ -83,16 +83,13 @@ function App() {
                 onChange={handleSearchTypeChange}
               >
                 <Select.Option value="0" style={{ textAlign: "center" }}>
-                  按名称搜索子节点
+                  按名称搜索后一层节点
                 </Select.Option>
                 <Select.Option value="1" style={{ textAlign: "center" }}>
-                  按B类型搜索
+                  按名称搜索后前后一层节点
                 </Select.Option>
                 <Select.Option value="2" style={{ textAlign: "center" }}>
-                  按C类型搜索
-                </Select.Option>
-                <Select.Option value="3" style={{ textAlign: "center" }}>
-                  按D类型搜索
+                  按名称搜索后两层节点
                 </Select.Option>
               </Select>
               <Search
