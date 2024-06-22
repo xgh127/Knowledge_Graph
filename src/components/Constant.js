@@ -11,13 +11,103 @@ export const menuItems = [
     children: [
       {
         key: "laoqingshan",
-        label: "老青山项目",
+        label: "老青山风场",
         query: "MATCH p=(a {name: '老青山项目'})-[r1]->(b)-[r2]->(c) RETURN *",
       },
       {
-        key: "guangfuchang",
-        label: "光伏村",
-        query: "MATCH p=(a)-[r]->(b) WHERE a.name =~ '光伏.*' RETURN *",
+        key: "dgshan",
+        label: "打挂山风场",
+        query: "MATCH p=(a {name: '打挂山风场'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "dgshan",
+        label: "小白龙风场",
+        query: "MATCH p=(a {name: '小白龙风场'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "xrdshan",
+        label: "仙人洞风场",
+        query: "MATCH p=(a {name: '仙人洞风场'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+
+      {
+        key: "xiutianguangfu",
+        label: "秀田光伏",
+        query: "MATCH p=(a {name: '秀田光伏'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "damoguguangfu",
+        label: "大莫古光伏",
+        query: "MATCH p=(a {name: '大莫古光伏'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "xxguangfu",
+        label: "小西村光伏",
+        query: "MATCH p=(a {name: '小西村光伏'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "bdguangfu",
+        label: "北大村光伏",
+        query: "MATCH p=(a {name: '北大村光伏'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "glxpguangfu",
+        label: "关岭新铺光伏",
+        query:
+          "MATCH p=(a {name: '关岭新铺光伏'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      // 其他子菜单项...
+    ],
+  },
+  {
+    key: "xiangmuguzhang",
+    label: "项目故障",
+    children: [
+      {
+        key: "lqsgz",
+        label: "老青山故障",
+        query: "MATCH p=(a {name: '老青山故障'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "dgshangz",
+        label: "打挂山故障",
+        query: "MATCH p=(a {name: '打挂山故障'})-[r1]->(b) RETURN *",
+      },
+      {
+        key: "dgshangz",
+        label: "小白龙故障",
+        query: "MATCH p=(a {name: '小白龙故障'})-[r1]->(b) RETURN *",
+      },
+      {
+        key: "xrdshangz",
+        label: "仙人洞故障",
+        query: "MATCH p=(a {name: '仙人洞故障'})-[r1]->(b) RETURN *",
+      },
+
+      {
+        key: "xiutianguangfugz",
+        label: "秀田故障",
+        query: "MATCH p=(a {name: '秀田故障'})-[r1]->(b)RETURN *",
+      },
+      {
+        key: "damoguguangfugz",
+        label: "大莫古故障",
+        query: "MATCH p=(a {name: '大莫古故障'})-[r1]->(b) RETURN *",
+      },
+      {
+        key: "xxguangfugz",
+        label: "小西村故障",
+        query: "MATCH p=(a {name: '小西村故障'})-[r1]->(b) RETURN *",
+      },
+      {
+        key: "bdguangfugz",
+        label: "北大村故障",
+        query: "MATCH p=(a {name: '北大村故障'})-[r1]->(b) RETURN *",
+      },
+      {
+        key: "glxpguangfugz",
+        label: "关岭新铺故障",
+        query: "MATCH p=(a {name: '关岭新铺故障'})-[r1]->(b) RETURN *",
       },
       // 其他子菜单项...
     ],
@@ -25,12 +115,81 @@ export const menuItems = [
   {
     key: "operationData",
     label: "运营数据",
-    query: "MATCH p=()-[r:`24号风机`]->() RETURN p LIMIT 25",
+    children: [
+      {
+        key: "lqsqqsj",
+        label: "老青山运营数据",
+        query:
+          "MATCH p=(a {name: '老青山运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "dgsqqsj",
+        label: "打挂山运营数据",
+        query:
+          "MATCH p=(a {name: '打挂山运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "xblqsj",
+        label: "小白龙运营数据",
+        query:
+          "MATCH p=(a {name: '小白龙运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "xrdcyysj",
+        label: "仙人洞运营数据",
+        query:
+          "MATCH p=(a {name: '仙人洞运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "xxcyysj",
+        label: "小西村运营数据",
+        query:
+          "MATCH p=(a {name: '小西村运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "dmgyysj",
+        label: "大莫古运营数据",
+        query:
+          "MATCH p=(a {name: '大莫古运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "bdcyysj",
+        label: "北大村运营数据",
+        query:
+          "MATCH p=(a {name: '北大村运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "xtyysj",
+        label: "秀田运营数据",
+        query:
+          "MATCH p=(a {name: '秀田运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+      {
+        key: "glxfyysj",
+        label: "关岭新铺运营数据",
+        query:
+          "MATCH p=(a {name: '关岭新铺运营数据'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+    ],
   },
   {
     key: "supplyChain",
     label: "大部件供应链",
-    query: "MATCH p=()-[r:`公司消缺项`]->() RETURN p LIMIT 25",
+    children: [
+      {
+        key: "gddbj",
+        label: "光电大部件公司",
+        query:
+          "MATCH p=(a {name: '光电大部件公司'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+
+      {
+        key: "fddbj",
+        label: "风电大部件公司",
+        query:
+          "MATCH p=(a {name: '风电大部件公司'})-[r1]->(b)-[r2]->(c) RETURN *",
+      },
+    ],
   },
   {
     key: "newEnergyPolicy",
@@ -121,6 +280,7 @@ export const labels = [
   "黄河上游水电开发西宁分公司",
   "设计施工公司",
   "设计施工单位",
+  "项目运营数据",
 ];
 export const searchTypeToCypher = [
   {
@@ -129,11 +289,15 @@ export const searchTypeToCypher = [
   },
   {
     type: 1,
+    cypher: "MATCH p=(a)-[r1]->(b) WHERE b.name =~ '.*${target}.*' RETURN *",
+  },
+  {
+    type: 2,
     cypher:
       "MATCH p=(a)-[r1]->(b)-[r2]->(c) WHERE b.name =~ '.*${target}.*' RETURN *",
   },
   {
-    type: 2,
+    type: 3,
     cypher:
       "MATCH p=(a)-[r1]->(b)-[r2]->(c) WHERE a.name =~ '.*${target}.*' RETURN *",
   },

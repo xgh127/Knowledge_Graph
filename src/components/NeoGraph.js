@@ -6,6 +6,7 @@ import { SubGraph } from "./SubGraph";
 import { labels } from "./Constant";
 
 const { Meta } = Card;
+
 //这是展示Neo4j图形的组件，它使用了Neovis.js库，它可以将Neo4j图形展示在网页上。
 export function generateLabelConfigs() {
   const baseConfig = {
@@ -19,6 +20,7 @@ export function generateLabelConfigs() {
   });
   return config;
 }
+
 const NeoGraph = props => {
   //定义一个NeoGraph组件，接收props参数
   const {
@@ -31,7 +33,7 @@ const NeoGraph = props => {
 
   const visRef = useRef(); //创建一个ref对象,用于保存Neo4j对象
   // useEffect 是一个React hook，它可以让你在函数组件中执行一些有副作用的操作，比如获取数据，设置状态，或者订阅一些事件。
-
+  const [subGraphCypher, setSubGraphCypher] = useState(null);
   const [selectedNodeInfo, setSelectedNodeInfo] = useState(null); // 存储选中节点的详细信息
   const [selectedEdgeInfo, setSelectedEdgeInfo] = useState(null); // 存储选中边的详细信息
   useEffect(() => {
@@ -58,6 +60,10 @@ const NeoGraph = props => {
         // e: { nodeId: number; node: Node }
         console.log(JSON.stringify(e.node.raw.properties));
         setSelectedNodeInfo(e.node.raw.properties);
+        let name = e.node.raw.properties.name;
+        console.log("name" + name);
+        let query = `MATCH p=(a)-[r]->(b) WHERE a.name='${name}' RETURN *`;
+        setSubGraphCypher(query);
       });
 
       vis.registerOnEvent("clickEdge", e => {
@@ -104,7 +110,7 @@ const NeoGraph = props => {
           />
         </Card>
         <SubGraph
-          cypherQuery={cypherQuery}
+          cypherQuery={subGraphCypher}
           containerId={"id1"}
           neo4jUri={neo4jUri}
           neo4jUser={neo4jUser}

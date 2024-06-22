@@ -86,9 +86,12 @@ function App() {
                   按名称搜索后一层节点
                 </Select.Option>
                 <Select.Option value="1" style={{ textAlign: "center" }}>
-                  按名称搜索后前后一层节点
+                  按名称搜索前一层节点
                 </Select.Option>
                 <Select.Option value="2" style={{ textAlign: "center" }}>
+                  按名称搜索后前后一层节点
+                </Select.Option>
+                <Select.Option value="3" style={{ textAlign: "center" }}>
                   按名称搜索后两层节点
                 </Select.Option>
               </Select>
