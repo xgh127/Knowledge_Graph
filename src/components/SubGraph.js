@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useResizeAware from "react-resize-aware";
 import PropTypes from "prop-types";
 import Neovis from "neovis.js/dist/neovis.js";
-import { generateLabelConfigs } from "./NeoGraph";
+import { generateLabelConfigs, generateRelationshipConfigs } from "./NeoGraph";
 import { labels } from "./Constant";
 
 //这是展示Neo4j图形的组件，它使用了Neovis.js库，它可以将Neo4j图形展示在网页上。
@@ -26,11 +26,7 @@ const SubGraph = props => {
       server_password: neo4jPassword,
       //caption属性换成label属性即可
       labels: generateLabelConfigs(),
-      relationships: {
-        DIRECTED: {
-          value: "weight",
-        },
-      },
+      // relationships: generateRelationshipConfigs(),
       arrows: true,
       initial_cypher: cypherQuery,
     };

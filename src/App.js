@@ -13,7 +13,7 @@ import { Footer } from "antd/es/modal/shared";
 // const NEO4J_PASSWORD = "cars-cards-warranties";
 const NEO4J_URI = "bolt://localhost:7687";
 const NEO4J_USER = "neo4j";
-const NEO4J_PASSWORD = "hongyuzhou";
+const NEO4J_PASSWORD = "test1234";
 const { Search } = Input;
 // 递归函数，用于生成菜单项
 

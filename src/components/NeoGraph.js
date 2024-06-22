@@ -3,7 +3,7 @@ import Neovis from "neovis.js/dist/neovis.js";
 import { Card, Layout } from "antd";
 import InfoDisplay from "./InfoDisplay";
 import { SubGraph } from "./SubGraph";
-import { labels } from "./Constant";
+import { allRelationships, labels } from "./Constant";
 
 const { Meta } = Card;
 
@@ -20,7 +20,17 @@ export function generateLabelConfigs() {
   });
   return config;
 }
+export function generateRelationshipConfigs() {
+  const baseRelationshipConfig = {
+    thickness: 0.1, // 设置所有关系的厚度为0.1
+  };
+  const relationshipConfig = {};
+  allRelationships.forEach(relationship => {
+    relationshipConfig[relationship] = { ...baseRelationshipConfig };
+  });
 
+  return relationshipConfig;
+}
 const NeoGraph = props => {
   //定义一个NeoGraph组件，接收props参数
   const {
@@ -44,11 +54,7 @@ const NeoGraph = props => {
       server_password: neo4jPassword,
       //caption属性换成label属性即可
       labels: generateLabelConfigs(),
-      relationships: {
-        DIRECTED: {
-          value: "weight",
-        },
-      },
+      relationships: generateRelationshipConfigs(),
       arrows: true,
       initial_cypher: cypherQuery,
     };
