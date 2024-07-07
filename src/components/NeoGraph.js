@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Neovis from "neovis.js/dist/neovis.js";
-import { Card, Layout } from "antd";
+import { Card, Layout, Modal } from "antd";
 import InfoDisplay from "./InfoDisplay";
 import { SubGraph } from "./SubGraph";
 import { labels } from "./Constant";
@@ -36,6 +36,7 @@ const NeoGraph = props => {
   const [subGraphCypher, setSubGraphCypher] = useState(null);
   const [selectedNodeInfo, setSelectedNodeInfo] = useState(null); // 存储选中节点的详细信息
   const [selectedEdgeInfo, setSelectedEdgeInfo] = useState(null); // 存储选中边的详细信息
+  const [isLoading, setIsLoading] = useState(false); // 控制加载提示的状态
   useEffect(() => {
     const config = {
       container_id: visRef.current.id,
@@ -44,19 +45,14 @@ const NeoGraph = props => {
       server_password: neo4jPassword,
       //caption属性换成label属性即可
       labels: generateLabelConfigs(),
-      // relationships: {
-      //   ...generateRelationshipConfigs(),
-      //     "公司":{
-      //       thickness: 0.1,
-      //
-      //     }
-      // },
       arrows: true,
       initial_cypher: cypherQuery,
     };
+    setIsLoading(true); // 开始渲染前设置为加载状态
     try {
       const vis = new Neovis(config);
       vis.render();
+      setIsLoading(false); // 渲染完成后关闭加载状态
       // 添加点击节点的事件监听器
       vis.registerOnEvent("clickNode", e => {
         // e: { nodeId: number; node: Node }
@@ -74,12 +70,22 @@ const NeoGraph = props => {
       });
     } catch (e) {
       console.error(e);
+      setIsLoading(false); // 出现错误时关闭加载状态
     }
     //添加点击边的事件监听器
   }, [neo4jUri, neo4jUser, neo4jPassword, cypherQuery]);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      {/* ...Sider和其他组件 */}
+      <Modal
+        title="提示"
+        visible={isLoading}
+        footer={null} // 不需要底部按钮，所以设置为null
+        centered
+      >
+        <div style={{ textAlign: "center" }}>加载中，请稍候...</div>
+      </Modal>
       <Layout.Sider
         width={300}
         height="100%"
@@ -119,17 +125,36 @@ const NeoGraph = props => {
           neo4jPassword={neo4jPassword}
         />
       </Layout.Sider>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 300,
-          bottom: 0,
-        }}
-        id={containerId}
-        ref={visRef}
-      />
+      {/* 根据 isLoaded 状态决定渲染图表容器还是加载提示 */}
+      {!isLoading ? (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 300,
+            bottom: 0,
+            // 其他样式...
+          }}
+          id={containerId}
+          ref={visRef}
+        >
+          {/* 图表容器，仅在加载完成后渲染 */}
+        </div>
+      ) : (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 1001,
+            // 其他样式...
+          }}
+        >
+          加载中，请稍候... {/* 加载提示 */}
+        </div>
+      )}
     </Layout>
   );
 };

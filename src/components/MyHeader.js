@@ -9,8 +9,7 @@ export const MyHeader = props => {
   return (
     <Layout.Header
       style={{
-        backgroundImage:
-          "url('https://hbimg.b0.upaiyun.com/d79887a5bd0c67c31d121570ae63e1886a44010611673-Kq66IF_fw658')",
+        backgroundImage: "url('./assets/headerImage.png')",
         backgroundSize: "cover", // 确保背景图片覆盖整个Sider
         backgroundRepeat: "no-repeat", // 防止背景图片重复
         backgroundPosition: "center", // 背景图片居中显示

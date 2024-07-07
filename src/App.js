@@ -5,12 +5,13 @@ import { NeoGraph, ResponsiveNeoGraph } from "./components/NeoGraph";
 import "./typography.css";
 
 import { menuItems, searchTypeToCypher } from "./components/Constant";
-import { Option } from "antd/es/mentions";
-import { Footer } from "antd/es/modal/shared";
 
 // const NEO4J_URI = "bolt://34.238.157.2:7687";
 // const NEO4J_USER = "neo4j";
 // const NEO4J_PASSWORD = "cars-cards-warranties";
+// const NEO4J_URI = "bolt://172.16.20.148:7688";
+// const NEO4J_USER = "neo4j";
+// const NEO4J_PASSWORD = "q1w2e3r4";
 const NEO4J_URI = "bolt://localhost:7687";
 const NEO4J_USER = "neo4j";
 const NEO4J_PASSWORD = "test1234";
@@ -22,20 +23,27 @@ function App() {
     "MATCH p=(a {name: '云南国际'})-[r1]->(b)-[r2]->(c)-[r3]->(d) RETURN *"
   );
   const [searchType, setSearchType] = useState(0);
-  const renderMenuItems = items => {
+  const renderMenuItems = (items, depth) => {
     return items.map(({ key, label, query, children }) => {
+      const fontsize = 20 - depth * 4; // 每深入一层，字体大小减2px
+      const menuItemStyle = {
+        fontSize: fontsize < 8 ? 8 : fontsize,
+      };
       const handleClick = () => {
         setCypherQuery(query);
       };
       if (children) {
         return (
-          <Menu.SubMenu key={key} title={<span>{label}</span>}>
-            {renderMenuItems(children)}
+          <Menu.SubMenu
+            key={key}
+            title={<span style={menuItemStyle}>{label}</span>}
+          >
+            {renderMenuItems(children, depth + 1)}
           </Menu.SubMenu>
         );
       }
       return (
-        <Menu.Item key={key} onClick={handleClick}>
+        <Menu.Item key={key} onClick={handleClick} style={menuItemStyle}>
           {label}
         </Menu.Item>
       );
@@ -71,54 +79,56 @@ function App() {
             }}
             mode="inline"
           >
-            {renderMenuItems(menuItems)}
+            {renderMenuItems(menuItems, 0)}
           </Menu>
         </Layout.Sider>
-        <Layout.Content>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Space.Compact style={{ width: "100%" }}>
-              <Select
-                style={{ width: "25%", textAlign: "center" }}
-                defaultValue="0"
-                onChange={handleSearchTypeChange}
-              >
-                <Select.Option value="0" style={{ textAlign: "center" }}>
-                  按名称搜索后一层节点
-                </Select.Option>
-                <Select.Option value="1" style={{ textAlign: "center" }}>
-                  按名称搜索前一层节点
-                </Select.Option>
-                <Select.Option value="2" style={{ textAlign: "center" }}>
-                  按名称搜索后前后一层节点
-                </Select.Option>
-                <Select.Option value="3" style={{ textAlign: "center" }}>
-                  按名称搜索后两层节点
-                </Select.Option>
-              </Select>
-              <Search
-                placeholder="input search text"
-                size={"middle"}
-                style={{ width: "75%" }}
-                onSearch={onSearch}
-              />
-            </Space.Compact>
-          </div>
-          <ResponsiveNeoGraph
-            cypherQuery={cypherQuery}
-            containerId={"id0"}
-            neo4jUri={NEO4J_URI}
-            neo4jUser={NEO4J_USER}
-            neo4jPassword={NEO4J_PASSWORD}
-          />
-        </Layout.Content>
+        <Layout className="site-layout">
+          <Layout.Content>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Space.Compact style={{ width: "100%" }}>
+                <Select
+                  style={{ width: "25%", textAlign: "center" }}
+                  defaultValue="0"
+                  onChange={handleSearchTypeChange}
+                >
+                  <Select.Option value="0" style={{ textAlign: "center" }}>
+                    按名称搜索后一层节点
+                  </Select.Option>
+                  <Select.Option value="1" style={{ textAlign: "center" }}>
+                    按名称搜索前一层节点
+                  </Select.Option>
+                  <Select.Option value="2" style={{ textAlign: "center" }}>
+                    按名称搜索后前后一层节点
+                  </Select.Option>
+                  <Select.Option value="3" style={{ textAlign: "center" }}>
+                    按名称搜索后两层节点
+                  </Select.Option>
+                </Select>
+                <Search
+                  placeholder="input search text"
+                  size={"middle"}
+                  style={{ width: "75%" }}
+                  onSearch={onSearch}
+                />
+              </Space.Compact>
+            </div>
+            <ResponsiveNeoGraph
+              cypherQuery={cypherQuery}
+              containerId={"id0"}
+              neo4jUri={NEO4J_URI}
+              neo4jUser={NEO4J_USER}
+              neo4jPassword={NEO4J_PASSWORD}
+            />
+          </Layout.Content>
+          <Layout.Footer
+            style={{
+              textAlign: "center",
+            }}
+          >
+            &copy; 2024 SJTU. All Rights Reserved By Xgh.
+          </Layout.Footer>
+        </Layout>
       </Layout>
-      <Layout.Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
-        &copy; 2024 SJTU. All Rights Reserved By Xgh.
-      </Layout.Footer>
     </Layout>
   );
 }
