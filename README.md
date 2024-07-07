@@ -1,13 +1,14 @@
 # Based on React+Neovis.js Knowledge Graph Visualization Example
 
 ![example](screenshots/example.png)
+You can see the demo [here](https://xgh127.github.io/Knowledge_Graph/).
 
 ## What is this thing?
 
 This repo is based on [react-neovis-example](https://github.com/jackdbd/react-neovis-example).I added some functions to make the graph more user-friendly.All the added features are listed below:
 
 - Add the arrow and let the node display the name of the node.
-- Add a search bar so users can input cypher query to search for specific information.![search](screenshots/search-bar.png)
+- Add a search bar so users can choose different types of nodes and input keywords to search for specific information.![search](screenshots/search-bar.png)
 - Add the function that users can click the node to see the detail of the node.![node-detail](screenshots/node-detail.png)
 - Add the button so users can click to run different cypher queries.
 
